@@ -1,12 +1,14 @@
 import pygame
+import time
 import threading
 
 fps = 60
 
-
-
 # run menu
 def run_menu(window_dimensions):
+    # run pygame
+    pygame.init()
+
     # open window
     screen = pygame.display.set_mode(window_dimensions, (pygame.RESIZABLE | pygame.NOFRAME))
     pygame.display.set_caption("Atlas Menu")
@@ -46,7 +48,13 @@ def run_menu(window_dimensions):
 
         # ensure framerate does not excede maximum
         clock.tick(fps)
+    
+    # close the window
+    pygame.display.quit()
 
+    # exit
+    pygame.quit()
+    
     return
 
 # main
@@ -54,16 +62,15 @@ def main():
     # say activation
     print("Hello Atlas!")
 
-    # run pygame
-    pygame.init()
-
     # menu open / close loop
     #while True:
-    # run menu
+    # run menus
     run_menu((800, 600))
 
+    # sleep, then open menu again
+    #time.sleep(3.0)
+
     # exit
-    pygame.quit()
     return
 
 # run atlas
