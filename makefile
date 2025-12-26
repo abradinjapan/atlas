@@ -1,2 +1,2 @@
 all:
-	g++ ./source/main.cpp -o ../atlas.cpp
+	g++ ./source/main.cpp -o ../atlas.elf

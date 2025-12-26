@@ -1,0 +1,23 @@
+#pragma once
+
+/* Include */
+#include <string>
+
+/* Error Class */
+namespace atlas {
+    class error {
+    public:
+        bool occured;
+        std::string json;
+
+        // constructors
+        error() {
+            occured = false;
+            json = "{\n\t\"reason\": \"No problem was detected.\"}";
+        }
+        error(bool _occured, std::string _json) {
+            occured = _occured;
+            json = _json;
+        }
+    };
+}
