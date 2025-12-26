@@ -43,7 +43,7 @@ namespace atlas {
 
             // open menu
             popup_menu = atlas::graphics::window();
-            error = popup_menu.open(atlas::graphics::window_styling("Menu", 1280, 1080, false));
+            error = popup_menu.open(atlas::graphics::window_styling("Menu", 800, 600, false));
 
             // check for error
             if (error.occured) {
@@ -82,6 +82,14 @@ namespace atlas {
                         // close pad
                         input_devices.remove_controller_by_gamepad(SDL_GetGamepadFromID(event.gdevice.which));
 
+                        break;
+                    // check for gamepad button pressed
+                    case SDL_EVENT_GAMEPAD_BUTTON_DOWN:
+                        // check for guide button pressed
+                        if (event.gbutton.button == SDL_GAMEPAD_BUTTON_GUIDE) {
+                            // set clear color to white
+                            glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+                        }
                         break;
                     // do nothing for unhandled event
                     default:
