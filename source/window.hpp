@@ -31,12 +31,20 @@ namespace atlas::graphics {
         bool no_frame; // whether or not the borders and top bar of a window are showing
         bool resizable;
 
-        // constructor
+        // constructors
+        window_styling() {
+            title = "Default Window";
+            width = 800;
+            height = 600;
+            no_frame = false;
+            resizable = false;
+        }
         window_styling(std::string _title, atlas::define::window_width _width, atlas::define::window_height _height, bool _no_frame) {
             title = _title;
             width = _width;
             height = _height;
             no_frame = _no_frame;
+            resizable = false;
         }
     };
 
@@ -47,8 +55,14 @@ namespace atlas::graphics {
         SDL_GLContext sdl3_opengl_context;
         atlas::graphics::window_styling window_styling;
 
+        window() {
+            window_context = 0;
+            sdl3_opengl_context = 0;
+            window_styling = atlas::graphics::window_styling();
+        }
+
         // open window
-        atlas::error open_window(atlas::graphics::window_styling style) {
+        atlas::error open(atlas::graphics::window_styling style) {
             // setup no error
             atlas::error output;
 
@@ -78,7 +92,8 @@ namespace atlas::graphics {
             }
 
             // initalize glew
-            if (glewInit() != GLEW_OK) {
+            GLenum glew_error = glewInit();
+            if (glew_error != GLEW_OK) {
                 // quit cleanly
                 SDL_GL_DestroyContext(sdl3_opengl_context);
                 SDL_DestroyWindow(window_context);
@@ -87,8 +102,18 @@ namespace atlas::graphics {
                 return atlas::error(true, "{\"reason\": \"GLEW did not initialize.\"}");
             }
 
+            // setup clear color
+            glClearColor(0.0f, 0.5f, 1.0f, 1.0f);
+
             // window initilaized
             return output;
+        }
+
+        // close window
+        void close() {
+            // close graphics
+            SDL_GL_DestroyContext(sdl3_opengl_context);
+            SDL_DestroyWindow(window_context);
         }
     };
 }

@@ -1,2 +1,2 @@
 all:
-	g++ ./source/main.cpp -o ../atlas.elf
+	g++ ./source/main.cpp -Wextra -Wall -o ../atlas.elf -g -lSDL3 -lGL -lGLEW -lm

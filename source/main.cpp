@@ -2,8 +2,18 @@
 #include <iostream>
 
 // atlas
-#include "window.hpp"
+#include "atlas.hpp"
 
 int main() {
-    std::cout << "Hello World!" << std::endl;
+    // hello console
+    std::cout << "Starting Atlas!" << std::endl;
+
+    // force x11 over wayland
+    setenv("SDL_VIDEODRIVER", "x11", 1);
+
+    // run atlas
+    atlas::runner atlas;
+    atlas.run();
+
+    std::cout << atlas.error.json << std::endl;
 }

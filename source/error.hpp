@@ -13,7 +13,7 @@ namespace atlas {
         // constructors
         error() {
             occured = false;
-            json = "{\n\t\"reason\": \"No problem was detected.\"}";
+            json = "{\n\t\"reason\": \"No problem was detected.\"\n}";
         }
         error(bool _occured, std::string _json) {
             occured = _occured;
