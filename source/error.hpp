@@ -1,7 +1,7 @@
 #pragma once
 
 /* Include */
-#include <string>
+#include "includes.hpp"
 
 /* Error Class */
 namespace atlas {

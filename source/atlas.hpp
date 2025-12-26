@@ -1,8 +1,12 @@
 #pragma once
 
 /* Include */
+// c++
+#include "includes.hpp"
+
 // atlas
 #include "window.hpp"
+#include "input.hpp"
 
 /* Atlas */
 namespace atlas {
@@ -14,6 +18,9 @@ namespace atlas {
         // console popup menu
         atlas::graphics::window popup_menu;
 
+        // input devices
+        atlas::input::devices input_devices;
+
     public:
         // atlas errors
         atlas::error error;
@@ -21,7 +28,7 @@ namespace atlas {
         // run atlas
         void run() {
             // init SDL3
-            if (!SDL_Init(SDL_INIT_VIDEO)) {
+            if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_GAMEPAD)) {
                 // setup error
                 error = atlas::error(true, "{\"reason\": \"SDL3 did not initialize.\"}");
 
@@ -43,17 +50,42 @@ namespace atlas {
                 return;
             }
 
+            // event temps
+            SDL_Event event;
+
             // runner loop
             while (running) {
-                // event temp
-                SDL_Event event;
-
                 // poll events
                 while (SDL_PollEvent(&event)) {
+                    // check event
+                    switch (event.type) {
                     // check for quit
-                    if (event.type == SDL_EVENT_QUIT) {
+                    case SDL_EVENT_QUIT:
                         // close window
                         running = false;
+
+                        break;
+                    // check for gamepad added and handle accordingly
+                    case SDL_EVENT_GAMEPAD_ADDED:
+                        // DEBUG
+                        std::cout << "Controller Added!" << std::endl;
+
+                        // open pad
+                        input_devices.add_controller(atlas::input::controller(event.gdevice.which));
+
+                        break;
+                    // check for gamepad removed and handle accordingly
+                    case SDL_EVENT_GAMEPAD_REMOVED:
+                        // DEBUG
+                        std::cout << "Controller Removed!" << std::endl;
+
+                        // close pad
+                        input_devices.remove_controller_by_gamepad(SDL_GetGamepadFromID(event.gdevice.which));
+
+                        break;
+                    // do nothing for unhandled event
+                    default:
+                        break;
                     }
                 }
 

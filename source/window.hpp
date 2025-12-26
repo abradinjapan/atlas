@@ -2,13 +2,7 @@
 
 /* Include */
 // c++
-#include <string>
-#include <stdint.h>
-
-// graphics
-#include <GL/glew.h>
-#include <GL/gl.h>
-#include <SDL3/SDL.h>
+#include "includes.hpp"
 
 // atlas
 #include "error.hpp"
@@ -75,7 +69,7 @@ namespace atlas::graphics {
             SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 
             // initalize window
-            window_context = SDL_CreateWindow((const char*)style.title.c_str(), style.width, style.height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+            window_context = SDL_CreateWindow((const char*)style.title.c_str(), style.width, style.height, SDL_WINDOW_OPENGL/* | SDL_WINDOW_RESIZABLE*/);
             if (window_context == 0) {
                 // return error
                 return atlas::error(true, "{\"reason\": \"Failed to create SDL3 window context.\"}");
