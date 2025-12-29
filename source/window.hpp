@@ -1,11 +1,9 @@
 #pragma once
 
 /* Include */
-// c++
-#include "includes.hpp"
-
 // atlas
-#include "error.hpp"
+#include "basic.hpp"
+#include "shaders.hpp"
 
 /* Define */
 namespace atlas::define {
@@ -13,7 +11,7 @@ namespace atlas::define {
     typedef uint64_t window_height;
 }
 
-// window
+/* Window */
 namespace atlas::graphics {
     // window appearance data (NOT including inner window, opengl takes care of that)
     class window_styling {

@@ -1,11 +1,8 @@
 #pragma once
 
 /* Include */
-// dependencies
-#include "includes.hpp"
-
 // atlas
-#include "error.hpp"
+#include "basic.hpp"
 
 /* Controllers */
 namespace atlas::input {
